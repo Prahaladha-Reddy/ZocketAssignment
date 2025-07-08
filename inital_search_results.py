@@ -58,6 +58,9 @@ def llm_for_question_gen(user_query:str, search_snippet:str):
   return question_list
 
 def llm_respond_for_link(queries,link):
-  data=page_extractor(link)
-  llm_result=llm.invoke(website_reader.format(question=queries, website=data['text']))
-  return llm_result.content
+    data=page_extractor(link)
+    text = data.get('text')
+    if not text:
+        return f"No text found for link: {link}"
+    llm_result=llm.invoke(website_reader.format(question=queries, website=text))
+    return llm_result.content

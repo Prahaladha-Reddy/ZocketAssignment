@@ -7,7 +7,9 @@ from final_extraction import final_process
 
 def researcher(query):
   questions=initial_question_list(query)
+  print("initial queries finished")
   content=final_process(questions)
+  print("final content finished")
   total_content=" ".join(content)
   response=llm.invoke(final_prompt.format(content=total_content,question=query))
   return response
